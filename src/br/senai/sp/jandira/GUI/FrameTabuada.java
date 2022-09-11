@@ -11,6 +11,7 @@ import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -45,24 +46,28 @@ public class FrameTabuada {
 		labelCalculadora.setIcon(new ImageIcon("src/br/senai/sp/jandira/img/calculadora.png"));
 		labelCalculadora.setBounds(10, 10, 64, 64);
 		
+		//titulo
 		JLabel labelTitulo = new JLabel();
 		labelTitulo.setText("Tabuada 1.0");
 		labelTitulo.setFont(new Font("Arial Black", Font.BOLD, 20));
 		labelTitulo.setForeground(Color.RED);
 		labelTitulo.setBounds(84, 10, 200, 30);
 		
+		//descrição 1
 		JLabel labelDescricao = new JLabel();
 		labelDescricao.setText("Com a tabuada 1.0 os seus problemas acabaram. Calcule");
 		labelDescricao.setFont(new Font("", Font.PLAIN, 15));
 		labelDescricao.setForeground(Color.LIGHT_GRAY);
 		labelDescricao.setBounds(84, 30, 400, 30);
 		
+		//descroção 2
 		JLabel labelDescricaoCont = new JLabel();
 		labelDescricaoCont.setText("a tabuada que desejar em segundos!");
 		labelDescricaoCont.setFont(new Font("", Font.PLAIN, 15));
 		labelDescricaoCont.setForeground(Color.LIGHT_GRAY);
 		labelDescricaoCont.setBounds(84, 45, 400, 30);
 		
+		//texto e caixa do multiplicando
 		JLabel labelMultiplicando = new JLabel();
 		labelMultiplicando.setText("Multiplicando:");
 		labelMultiplicando.setFont(new Font("", Font.PLAIN, 20));
@@ -74,6 +79,7 @@ public class FrameTabuada {
 		textFieldMultiplicando.setBorder(new LineBorder(Color.BLUE));
 		textFieldMultiplicando.setBounds(210, 97, 255, 30);
 		
+		//texto e caixa do minMultiplicador
 		JLabel labelMinMultiplicador = new JLabel();
 		labelMinMultiplicador.setText("Mínimo Multiplicador:");
 		labelMinMultiplicador.setFont(new Font("", Font.PLAIN, 20));
@@ -85,6 +91,7 @@ public class FrameTabuada {
 		textFieldMinMultiplicador.setBorder(new LineBorder(Color.BLUE));
 		textFieldMinMultiplicador.setBounds(210, 137, 255, 30);
 		
+		//texto e caixa do maxMultiplicador
 		JLabel labelMaxMultiplicador = new JLabel();
 		labelMaxMultiplicador.setText("Máximo Multiplicador:");
 		labelMaxMultiplicador.setFont(new Font("", Font.PLAIN, 20));
@@ -113,19 +120,21 @@ public class FrameTabuada {
 		buttonLimpar.setBorder(new LineBorder(Color.GRAY));
 		buttonLimpar.setBounds(220, 237, 245, 60);
 		
+		//texto resultado
 		JLabel labelResultado = new JLabel();
 		labelResultado.setText("Resultado:");
 		labelResultado.setFont(new Font("", Font.BOLD, 20));
 		labelResultado.setBounds(10, 327, 200, 30);
 		
-		//lista
+		//lista e scroll
 		JScrollPane scroll = new JScrollPane();
 		scroll.setBounds(10, 360, 455, 290);
-		scroll.setBackground(new Color(255, 251, 0));
 		JList<String> lista = new JList<>();
-		lista.setForeground(new Color(11, 158, 0));
 		lista.setFont(new Font("", Font.BOLD, 20));
+		lista.setBounds(10, 360, 455, 290);
+		lista.setForeground(new Color(11, 158, 0));
 		lista.setBackground(new Color(255, 251, 0));
+		lista.setBackground(null);
 		
 		//colocar os componentes no container
 		painel.add(labelCalculadora);
@@ -144,7 +153,7 @@ public class FrameTabuada {
 		painel.add(scroll);
 		painel.add(lista);
 		
-		
+		//mostrar a janela
 		janela.setVisible(true);
 		
 		//eventos dos botões
@@ -159,6 +168,21 @@ public class FrameTabuada {
 				
 				lista.setListData(m.getTabuada());
 				scroll.getViewport().add(lista);
+				
+			}
+		});
+		
+		buttonLimpar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				textFieldMultiplicando.setText(null);
+				textFieldMinMultiplicador.setText(null);
+				textFieldMaxMultiplicador.setText(null);
+				
+				DefaultListModel<String> model = new DefaultListModel<>();
+				model.clear();
+				lista.setModel(model);
 				
 			}
 		});
