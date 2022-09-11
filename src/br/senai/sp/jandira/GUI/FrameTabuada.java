@@ -17,6 +17,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -134,7 +135,7 @@ public class FrameTabuada {
 		lista.setBounds(10, 360, 455, 290);
 		lista.setForeground(new Color(11, 158, 0));
 		lista.setBackground(new Color(255, 251, 0));
-		lista.setBackground(null);
+		
 		
 		//colocar os componentes no container
 		painel.add(labelCalculadora);
@@ -162,12 +163,20 @@ public class FrameTabuada {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Multiplicacao m = new Multiplicacao();
-				m.multiplicando = Integer.parseInt(textFieldMultiplicando.getText());
-				m.minMultiplicador = Integer.parseInt(textFieldMinMultiplicador.getText());
-				m.maxMultiplicador = Integer.parseInt(textFieldMaxMultiplicador.getText());
-				
-				lista.setListData(m.getTabuada());
-				scroll.getViewport().add(lista);
+				try {
+					m.multiplicando = Integer.parseInt(textFieldMultiplicando.getText());
+					m.minMultiplicador = Integer.parseInt(textFieldMinMultiplicador.getText());
+					m.maxMultiplicador = Integer.parseInt(textFieldMaxMultiplicador.getText());
+					
+					lista.setListData(m.getTabuada());
+					scroll.getViewport().add(lista);
+					
+				} catch (Exception i) {
+					JOptionPane.showMessageDialog(null, "Você precisa digitar um número nas caixas de entrada", "ERRO", JOptionPane.ERROR_MESSAGE);
+					textFieldMultiplicando.setText(null);
+					textFieldMinMultiplicador.setText(null);
+					textFieldMaxMultiplicador.setText(null);
+				}
 				
 			}
 		});
