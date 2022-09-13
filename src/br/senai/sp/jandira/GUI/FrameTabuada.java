@@ -163,6 +163,7 @@ public class FrameTabuada {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				Multiplicacao m = new Multiplicacao();
+				
 				try {
 					m.multiplicando = Integer.parseInt(textFieldMultiplicando.getText());
 					m.minMultiplicador = Integer.parseInt(textFieldMinMultiplicador.getText());
@@ -172,10 +173,25 @@ public class FrameTabuada {
 					scroll.getViewport().add(lista);
 					
 				} catch (Exception i) {
-					JOptionPane.showMessageDialog(null, "Você precisa digitar um número nas caixas de entrada", "ERRO", JOptionPane.ERROR_MESSAGE);
-					textFieldMultiplicando.setText(null);
-					textFieldMinMultiplicador.setText(null);
-					textFieldMaxMultiplicador.setText(null);
+					
+					if (m.minMultiplicador > m.maxMultiplicador) {
+						
+						JOptionPane.showMessageDialog(null, "O Mínimo Multiplicador precisa ser menor ou igual ao Máximo Multiplicador", "ERRO", JOptionPane.ERROR_MESSAGE);
+						textFieldMultiplicando.setText(null);
+						textFieldMinMultiplicador.setText(null);
+						textFieldMaxMultiplicador.setText(null);
+
+					}
+					
+					if (m.minMultiplicador <= m.maxMultiplicador) {
+						
+						JOptionPane.showMessageDialog(null, "Você precisa digitar um número nas caixas de entrada", "ERRO", JOptionPane.ERROR_MESSAGE);
+						textFieldMultiplicando.setText(null);
+						textFieldMinMultiplicador.setText(null);
+						textFieldMaxMultiplicador.setText(null);
+
+					}
+					
 				}
 				
 			}
