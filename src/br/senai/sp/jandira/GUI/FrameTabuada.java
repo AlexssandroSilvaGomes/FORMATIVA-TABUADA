@@ -128,14 +128,16 @@ public class FrameTabuada {
 		labelResultado.setBounds(10, 327, 200, 30);
 		
 		//lista e scroll
+		Color amarelo = new Color(252, 238, 188);
 		JScrollPane scroll = new JScrollPane();
+		scroll.setBackground(amarelo);
 		scroll.setBounds(10, 360, 455, 290);
 		JList<String> lista = new JList<>();
+		scroll.getViewport().add(lista);
+		lista.setBackground(amarelo);
+		lista.setForeground(new Color(11, 158, 0));
 		lista.setFont(new Font("", Font.BOLD, 20));
 		lista.setBounds(10, 360, 455, 290);
-		lista.setForeground(new Color(11, 158, 0));
-		lista.setBackground(new Color(255, 251, 0));
-		
 		
 		//colocar os componentes no container
 		painel.add(labelCalculadora);
@@ -152,7 +154,6 @@ public class FrameTabuada {
 		painel.add(buttonLimpar);
 		painel.add(labelResultado);
 		painel.add(scroll);
-		painel.add(lista);
 		
 		//mostrar a janela
 		janela.setVisible(true);
@@ -170,27 +171,62 @@ public class FrameTabuada {
 					m.maxMultiplicador = Integer.parseInt(textFieldMaxMultiplicador.getText());
 					
 					lista.setListData(m.getTabuada());
-					scroll.getViewport().add(lista);
 					
 				} catch (Exception i) {
 					
-					if (m.minMultiplicador > m.maxMultiplicador) {
+					//verifica se o min não é maior que o max
+					
+					if (textFieldMultiplicando.getText().isEmpty() && textFieldMinMultiplicador.getText().isEmpty() && textFieldMaxMultiplicador.getText().isEmpty()) {
+						
+						JOptionPane.showMessageDialog(null, "Digite um número nas caixas de entrada!", "ERRO", JOptionPane.ERROR_MESSAGE);
+						textFieldMultiplicando.setText(null);
+						textFieldMinMultiplicador.setText(null);
+						textFieldMaxMultiplicador.setText(null);
+						
+					} else if (m.minMultiplicador > m.maxMultiplicador && textFieldMinMultiplicador.getText().isEmpty() == false && textFieldMaxMultiplicador.getText().isEmpty() == false) {
 						
 						JOptionPane.showMessageDialog(null, "O Mínimo Multiplicador precisa ser menor ou igual ao Máximo Multiplicador", "ERRO", JOptionPane.ERROR_MESSAGE);
 						textFieldMultiplicando.setText(null);
 						textFieldMinMultiplicador.setText(null);
 						textFieldMaxMultiplicador.setText(null);
 
-					}
-					
-					if (m.minMultiplicador <= m.maxMultiplicador) {
+					} else if (m.minMultiplicador <= m.maxMultiplicador && textFieldMultiplicando.getText().isEmpty() && textFieldMinMultiplicador.getText().isEmpty() == false && textFieldMaxMultiplicador.getText().isEmpty() == false) {
 						
-						JOptionPane.showMessageDialog(null, "Você precisa digitar um número nas caixas de entrada", "ERRO", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "A caixa de texto Multiplicando não pode estar vazia!", "ERRO", JOptionPane.ERROR_MESSAGE);
+						textFieldMultiplicando.setText(null);
+						textFieldMinMultiplicador.setText(null);
+						textFieldMaxMultiplicador.setText(null);
+					
+					} else if (textFieldMultiplicando.getText().isEmpty() == false && textFieldMinMultiplicador.getText().isEmpty() && textFieldMaxMultiplicador.getText().isEmpty() == false) {
+						
+						JOptionPane.showMessageDialog(null, "A caixa de texto Mínimo Multiplicador não pode estar vazia!", "ERRO", JOptionPane.ERROR_MESSAGE);
+						textFieldMultiplicando.setText(null);
+						textFieldMinMultiplicador.setText(null);
+						textFieldMaxMultiplicador.setText(null);
+						
+					} else if (textFieldMultiplicando.getText().isEmpty() == false && textFieldMinMultiplicador.getText().isEmpty() == false && textFieldMaxMultiplicador.getText().isEmpty()) {
+						
+						JOptionPane.showMessageDialog(null, "A caixa de texto Máximo Multiplicador não pode estar vazia!", "ERRO", JOptionPane.ERROR_MESSAGE);
+						textFieldMultiplicando.setText(null);
+						textFieldMinMultiplicador.setText(null);
+						textFieldMaxMultiplicador.setText(null);
+						
+					} else if (m.minMultiplicador <= m.maxMultiplicador) {
+						
+						JOptionPane.showMessageDialog(null, "Não é possível multiplicar um texto. Digite um número nas caixas de entrada!", "ERRO", JOptionPane.ERROR_MESSAGE);
 						textFieldMultiplicando.setText(null);
 						textFieldMinMultiplicador.setText(null);
 						textFieldMaxMultiplicador.setText(null);
 
+					} else {
+						
+						JOptionPane.showMessageDialog(null, "irmão, cê fez alguma maracutaia ai que eu não entendi, só evita, faz favor :)", "ERRO", JOptionPane.ERROR_MESSAGE);
+						textFieldMultiplicando.setText(null);
+						textFieldMinMultiplicador.setText(null);
+						textFieldMaxMultiplicador.setText(null);
+						
 					}
+					
 					
 				}
 				
